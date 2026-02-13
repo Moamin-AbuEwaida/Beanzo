@@ -4,13 +4,23 @@ import { Product } from '../types';
 
 interface ProductCardProps {
     product: Product;
+    onClick: (product: Product) => void;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+export const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
     return (
-        <div className="bg-white rounded-[2rem] p-6 shadow-md hover:shadow-2xl transition-all duration-300 relative group border border-coffee-100">
+        <div 
+            onClick={() => onClick(product)}
+            className="bg-white dark:bg-coffee-800 rounded-[2rem] p-6 shadow-md hover:shadow-2xl transition-all duration-300 relative group border border-coffee-100 dark:border-coffee-700 cursor-pointer"
+        >
             {/* Wishlist Button */}
-            <button className="absolute top-6 left-6 text-gray-300 hover:text-red-500 transition-colors">
+            <button 
+                className="absolute top-6 left-6 text-gray-300 hover:text-red-500 transition-colors z-10"
+                onClick={(e) => {
+                    e.stopPropagation();
+                    // Wishlist logic here
+                }}
+            >
                 <Heart className="w-5 h-5" />
             </button>
 
@@ -25,12 +35,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
             {/* Content */}
             <div className="text-center">
-                <div className="text-xs text-gray-400 mb-2">{product.availableTypes} Types Available</div>
-                <h3 className="text-xl font-bold text-coffee-900 mb-4 font-serif">{product.name}</h3>
+                <div className="text-xs text-gray-400 dark:text-gray-300 mb-2">{product.availableTypes} Types Available</div>
+                <h3 className="text-xl font-bold text-coffee-900 dark:text-white mb-4 font-serif transition-colors">{product.name}</h3>
                 
-                <div className="flex items-center justify-between mt-4 bg-coffee-50 rounded-2xl p-2 px-4">
-                    <span className="text-lg font-bold text-coffee-900">${product.price}</span>
-                    <button className="bg-accent text-white p-2 rounded-full hover:bg-coffee-800 transition-colors shadow-lg">
+                <div className="flex items-center justify-between mt-4 bg-coffee-50 dark:bg-coffee-900/50 rounded-2xl p-2 px-4 transition-colors">
+                    <span className="text-lg font-bold text-coffee-900 dark:text-white">${product.price}</span>
+                    <button 
+                        className="bg-accent text-white p-2 rounded-full hover:bg-coffee-800 dark:hover:bg-coffee-700 transition-colors shadow-lg"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            // Add to cart logic here
+                        }}
+                    >
                         <ShoppingBag className="w-4 h-4" />
                     </button>
                 </div>

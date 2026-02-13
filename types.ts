@@ -1,5 +1,12 @@
 import { LucideIcon } from 'lucide-react';
 
+export interface ProductSize {
+  name: string;
+  volume: string;
+  price: number;
+  calories: number;
+}
+
 export interface Product {
   id: number;
   name: string;
@@ -7,6 +14,9 @@ export interface Product {
   image: string;
   rating: number;
   availableTypes: number;
+  description: string;
+  ingredients: string[];
+  sizes: ProductSize[];
 }
 
 export interface Service {

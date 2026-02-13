@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
+        darkMode: 'class',
         theme: {
           extend: {
             colors: {
@@ -26,6 +27,7 @@
                 700: '#5e4036',
                 800: '#4a322a',
                 900: '#2b1810',
+                950: '#1a0f0a',
               },
               accent: {
                 DEFAULT: '#D97706',
@@ -38,6 +40,14 @@
             }
           }
         }
+      }
+    </script>
+    <script>
+      // Check local storage and apply dark mode immediately to prevent flash
+      if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark')
+      } else {
+        document.documentElement.classList.remove('dark')
       }
     </script>
     <style>
@@ -54,6 +64,9 @@
       }
       ::-webkit-scrollbar-thumb:hover {
         background: #8a6254;
+      }
+      .dark ::-webkit-scrollbar-track {
+        background: #1a0f0a;
       }
       .text-shadow {
         text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
@@ -76,7 +89,7 @@
 }
 </script>
 </head>
-  <body class="bg-coffee-50 text-coffee-900 font-sans antialiased">
+  <body class="bg-coffee-50 dark:bg-coffee-950 text-coffee-900 dark:text-coffee-100 font-sans antialiased transition-colors duration-300">
     <div id="root"></div>
     <script type="module" src="./index.tsx"></script>
   </body>
